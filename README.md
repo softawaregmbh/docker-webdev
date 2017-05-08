@@ -27,7 +27,7 @@ docker container run -it --rm -v ${pwd}:/usr/src/app softaware/webdev:node-6.10.
 FROM softaware/webdev:6.10.2
 EXPOSE 4200
 ```
-```shell
+```bash
 # --- run.ps1 ---
 docker image build -t demo:webdev .
 docker container run -it --rm -p 4200:4200 -v ${pwd}:/usr/src/app demo:webdev
