@@ -8,6 +8,8 @@ The `latest`-tag is omitted on purpose, because the idea of this container is to
 
 - **4.8.3:** [![](https://images.microbadger.com/badges/version/softaware/webdev:node-4.8.3.svg)](https://microbadger.com/images/softaware/webdev:node-4.8.3 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/softaware/webdev:node-4.8.3.svg)](https://microbadger.com/images/softaware/webdev:node-4.8.3 "Get your own image badge on microbadger.com")
 - **6.10.2:** [![](https://images.microbadger.com/badges/version/softaware/webdev:node-6.10.2.svg)](https://microbadger.com/images/softaware/webdev:node-6.10.2 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/softaware/webdev:node-6.10.2.svg)](https://microbadger.com/images/softaware/webdev:node-6.10.2 "Get your own image badge on microbadger.com")
+- **6.10.3:** [![](https://images.microbadger.com/badges/version/softaware/webdev:node-6.10.3.svg)](https://microbadger.com/images/softaware/webdev:node-6.10.3 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/softaware/webdev:node-6.10.3.svg)](https://microbadger.com/images/softaware/webdev:node-6.10.3 "Get your own image badge on microbadger.com")
+- **7.9.0:** [![](https://images.microbadger.com/badges/version/softaware/webdev:node-7.9.0.svg)](https://microbadger.com/images/softaware/webdev:node-7.9.0 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/softaware/webdev:node-7.9.0.svg)](https://microbadger.com/images/softaware/webdev:node-7.9.0 "Get your own image badge on microbadger.com")
 - **7.10.0:** [![](https://images.microbadger.com/badges/version/softaware/webdev:node-7.10.0.svg)](https://microbadger.com/images/softaware/webdev:node-7.10.0 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/softaware/webdev:node-7.10.0.svg)](https://microbadger.com/images/softaware/webdev:node-7.10.0 "Get your own image badge on microbadger.com")
 
 like [*node releases*](https://nodejs.org/en/download/releases/) and [*node-docker tags*](https://hub.docker.com/r/library/node/)
@@ -21,10 +23,12 @@ docker container run -it --rm -v ${pwd}:/usr/src/app softaware/webdev:node-6.10.
 
 ##### *in a project (e.g. Angular CLI)*
 ```Dockerfile
+# --- Dockerfile ---
 FROM softaware/webdev:6.10.2
 EXPOSE 4200
 ```
-```
+```shell
+# --- run.ps1 ---
 docker image build -t demo:webdev .
 docker container run -it --rm -p 4200:4200 -v ${pwd}:/usr/src/app demo:webdev
 ```
