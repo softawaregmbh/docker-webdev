@@ -31,18 +31,17 @@
   </h3>
 </div>
 
-## Versions and Sizes
-### *latest versions*
-| Node<sup>1</sup> | Version | Base | Angular |
+
+## Versions<sup>1</sup> and Sizes
+| Node<sup>2</sup> | Version | Base | Angular |
 | :---: | :---: | :---: | :---: |
 | **4** | `4.8.3` | [![](https://images.microbadger.com/badges/image/softaware/webdev:node-4.8.3.svg)](https://microbadger.com/images/softaware/webdev:node-4.8.3 "Get your own image badge on microbadger.com") | - |
 | **6** | `6.10.3` | [![](https://images.microbadger.com/badges/image/softaware/webdev:node-6.10.3.svg)](https://microbadger.com/images/softaware/webdev:node-6.10.3 "Get your own image badge on microbadger.com") | [![](https://images.microbadger.com/badges/image/softaware/webdev:angular-6.10.3.svg)](https://microbadger.com/images/softaware/webdev:angular-6.10.3 "Get your own image badge on microbadger.com") |
 | 7 | `7.10.0` | [![](https://images.microbadger.com/badges/image/softaware/webdev:node-7.10.0.svg)](https://microbadger.com/images/softaware/webdev:node-7.10.0 "Get your own image badge on microbadger.com") | - |
 
-<sup>1</sup> more info here: [Node.js LTS Working Group](https://github.com/nodejs/LTS)
+<sup>1</sup> You can see all available versions on [Docker Hub](https://hub.docker.com/r/softaware/webdev/tags/). The images are tagged according to the `npm`/`node` releases like [node releases](https://nodejs.org/en/download/releases/) and [node-docker tags](https://hub.docker.com/r/library/node/).
 
-### *all versions*
-You can see all available versions on [Docker Hub](https://hub.docker.com/r/softaware/webdev/tags/). The images are tagged according to the `npm`/`node` releases like [node releases](https://nodejs.org/en/download/releases/) and [node-docker tags](https://hub.docker.com/r/library/node/).
+<sup>2</sup> more info here: [Node.js LTS Working Group](https://github.com/nodejs/LTS)
 
 
 ## Usage *([more](./examples))*
@@ -57,8 +56,9 @@ Our Container for Frontend-Webdevelopment based on node/npm.
 The **main advantage** is the abstraction of the build-toolchain into a container, thus providing a consistent and reproducible developer experience across systems and platforms.
 The `latest`-tag is omitted on purpose, because the idea of this container is to exactly specify the node and npm version you want to use.
 
+
 ## Development
-The containers are created through `create-image.ps1`.
+The containers are created through [`create-image.ps1`](./create-image.ps1). Please update the information in this [README](https://github.com/softawaregmbh/docker-webdev/blob/master/README.md) according to the new versions.
 ### Options
 ```
 // Parameters
