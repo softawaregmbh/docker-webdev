@@ -33,7 +33,7 @@
 
 
 ## Versions<sup>1</sup> and Sizes
-| Node<sup>2</sup> | Version | Base | Angular |
+| Node<sup>2</sup> | Version | Base | Angular<sup>3</sup> |
 | :---: | :---: | :---: | :---: |
 | **4** | `4.8.3` | [![](https://images.microbadger.com/badges/image/softaware/webdev:node-4.8.3.svg)](https://microbadger.com/images/softaware/webdev:node-4.8.3 "Get your own image badge on microbadger.com") | - |
 | **6** | `6.10.3` | [![](https://images.microbadger.com/badges/image/softaware/webdev:node-6.10.3.svg)](https://microbadger.com/images/softaware/webdev:node-6.10.3 "Get your own image badge on microbadger.com") | [![](https://images.microbadger.com/badges/image/softaware/webdev:angular-6.10.3.svg)](https://microbadger.com/images/softaware/webdev:angular-6.10.3 "Get your own image badge on microbadger.com") |
@@ -43,6 +43,8 @@
 
 <sup>2</sup> more info here: [Node.js LTS Working Group](https://github.com/nodejs/LTS)
 
+<sup>3</sup> no Angular included, just exposes port 4200 (see: [`Dockerfile`](./image/angular/Dockerfile))
+
 
 ## Usage *([more](./examples))*
 Directly start the container to run a specific set of `npm`/`node`/`yarn` version without the need to install it locally. Mapping the current folder with `-v ...`. Choose the version according to the [available tags](https://hub.docker.com/r/softaware/webdev/tags/).
@@ -51,10 +53,15 @@ docker container run -it --rm -v ${pwd}:/usr/src/app softaware/webdev:node-6.10.
 ```
 
 ## Motivation
-TODO:
-Our Container for Frontend-Webdevelopment based on node/npm.
+Developing multiple Web-Applications (especially old-ones) can get really tricky due to different `npm`/`node`-versions. Solutions like [nvm](https://github.com/creationix/nvm) are not cross-platform and introduce an implicit depencency.
+We thought that Docker and Container Solutions would allow us to commit our parts development environment with our source-code and make the used versions explicit.
+Thanks to the great official node Docker image: [`library/node`](https://hub.docker.com/_/node/), this task was not hard to accomplish.
+A `latest`-tag is omitted on purpose, because the idea of this container is to exactly specify the node and npm version you want to use.
+A few problems we faced and their solutions are described in [caveats](#caveats).
+
+### What it does?
+The [`Dockerfile`](./image/node/Dockerfile) extends `node:x.x.x-alpine` adds `bash`, modifies it's prompt slightly and [modifies the path](https://github.com/softawaregmbh/docker-webdev/blob/master/image/node/Dockerfile#L6) to execute `devDependencies` as executables. Additionally [npm-completion](https://docs.npmjs.com/cli/completion) is enabled.
 The **main advantage** is the abstraction of the build-toolchain into a container, thus providing a consistent and reproducible developer experience across systems and platforms.
-The `latest`-tag is omitted on purpose, because the idea of this container is to exactly specify the node and npm version you want to use.
 
 
 ## Caveats
