@@ -2,7 +2,7 @@
 
 The following examples show sample cases how the containers can be used in real projects. Our goal is to simplify the usage as much as possible thus providing a *consistent workflow across multiple projects*.
 
-All of the following examples are intended to be added to a project in the *root-folder*. Now a *reproducable node-environment* can be started with:
+All of the following examples are intended to be added to a project's *root-folder*. Afterwards a *reproducable node-environment* can be started with:
 ```
 .\docker-devenv.ps1   <return>
 ```
