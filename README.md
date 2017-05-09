@@ -60,7 +60,8 @@ A `latest`-tag is omitted on purpose, because the idea of this container is to e
 A few problems we faced and their solutions are described in [caveats](#caveats).
 
 ### What it does?
-The [`Dockerfile`](./image/node/Dockerfile) extends `node:x.x.x-alpine` adds `bash`, modifies it's prompt slightly and [modifies the path](https://github.com/softawaregmbh/docker-webdev/blob/master/image/node/Dockerfile#L6) to execute `devDependencies` as executables. Additionally [npm-completion](https://docs.npmjs.com/cli/completion) is enabled.
+The [`Dockerfile`](./image/node/Dockerfile) extends `node:x.x.x-alpine` adds `bash`, modifies it's prompt slightly and [extends the path](./image/node/Dockerfile#L6) to execute `devDependencies` as executables. Additionally [npm-completion](https://docs.npmjs.com/cli/completion) is enabled.
+
 The **main advantage** is the abstraction of the build-toolchain into a container, thus providing a consistent and reproducible developer experience across systems and platforms.
 
 
