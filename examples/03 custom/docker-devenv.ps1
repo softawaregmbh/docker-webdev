@@ -3,7 +3,7 @@ try { $projectname = (Get-Content -Raw -Path package.json -ErrorAction Stop | Co
 $tag = "webdev"
 
 $imagename = $projectname + ":" + $tag
-$containername = $projectname + "-" + $tag
+$containername = $projectname.Replace(" ", "_") + "-" + $tag
 
 docker image build -t $imagename .
 docker container run -it --rm -p 4200:4200 -v ${pwd}:/usr/src/app --name ${containername} $imagename
