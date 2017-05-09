@@ -31,7 +31,7 @@ This approach handles both cases.
 | + | - |
 | :---: | :---: |
 | run multiple containers | not customizable |
-| and [`attach`]((https://docs.docker.com/engine/reference/commandline/container_attach/)) to them | |
+| and [`attach`](https://docs.docker.com/engine/reference/commandline/container_attach/) to them | |
 
 ## Custom *([code](./01%20custom))*
 This approach extends the Advanced example with a *custom container*.
