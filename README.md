@@ -49,13 +49,13 @@ You can see all available versions on [Docker Hub](https://hub.docker.com/r/soft
 ### *standalone*
 Directly start the container to run a specific set of npm/node/yarn version without the need to install it locally. Mapping the current folder with `-v ...`.
 ```
-docker container run -it --rm -v ${pwd}:/usr/src/app softaware/webdev:node-6.10.2
+docker container run -it --rm -v ${pwd}:/usr/src/app softaware/webdev:node-6.10.3
 ```
 
 ### *in a project (e.g. Angular CLI)*
 ```Dockerfile
 # --- Dockerfile ---
-FROM softaware/webdev:6.10.2
+FROM softaware/webdev:6.10.3
 EXPOSE 4200
 ```
 ```bash
