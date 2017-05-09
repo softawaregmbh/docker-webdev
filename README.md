@@ -17,8 +17,8 @@
       Motivation
     </a>
     <span> | </span>
-    <a href="./example">
-      Example
+    <a href="./examples">
+      Examples
     </a>
     <span> | </span>
     <a href="https://github.com/softawaregmbh/docker-webdev">
@@ -42,34 +42,42 @@
 <sup>1</sup> more info here: [Node.js LTS Working Group](https://github.com/nodejs/LTS)
 
 ### *all versions*
-You can see all available versions on [Docker Hub](https://hub.docker.com/r/softaware/webdev/tags/). The images are tagged according to the node/npm releases like [node releases](https://nodejs.org/en/download/releases/) and [node-docker tags](https://hub.docker.com/r/library/node/).
+You can see all available versions on [Docker Hub](https://hub.docker.com/r/softaware/webdev/tags/). The images are tagged according to the `npm`/`node` releases like [node releases](https://nodejs.org/en/download/releases/) and [node-docker tags](https://hub.docker.com/r/library/node/).
 
 
-## Usage
-### *standalone*
-Directly start the container to run a specific set of npm/node/yarn version without the need to install it locally. Mapping the current folder with `-v ...`.
+## Usage *([more](./examples))*
+Directly start the container to run a specific set of `npm`/`node`/`yarn` version without the need to install it locally. Mapping the current folder with `-v ...`. Choose the version according to the [available tags](https://hub.docker.com/r/softaware/webdev/tags/).
 ```
 docker container run -it --rm -v ${pwd}:/usr/src/app softaware/webdev:node-6.10.3
 ```
 
-### *in a project (e.g. Angular CLI)*
-```Dockerfile
-# --- Dockerfile ---
-FROM softaware/webdev:node-6.10.3
-EXPOSE 4200
-```
-```bash
-# --- run.ps1 ---
-docker image build -t demo:webdev .
-docker container run -it --rm -p 4200:4200 -v ${pwd}:/usr/src/app demo:webdev
-```
-
-### *real-world example*
-`./example`
-
-
 ## Motivation
 
-> Our Container for Frontend-Webdevelopment based on node/npm.
-> The **main advantage** is the abstraction of the build-toolchain into a container, thus providing a consistent and reproducible developer experience across systems and platforms.
-> The `latest`-tag is omitted on purpose, because the idea of this container is to exactly specify the node and npm version you want to use.
+Our Container for Frontend-Webdevelopment based on node/npm.
+The **main advantage** is the abstraction of the build-toolchain into a container, thus providing a consistent and reproducible developer experience across systems and platforms.
+The `latest`-tag is omitted on purpose, because the idea of this container is to exactly specify the node and npm version you want to use.
+
+## Development
+The containers are created through `create-image.ps1`.
+### Options
+```
+// Parameters
+[1] image-type     # one of the subfolders in ./image
+[2] node-version   # node-version according to https://hub.docker.com/r/library/node/
+
+// Flags
+-silent    # omit Docker-Output only show success and error messages
+-publish   # publish the created Image to Docker-Hub; `docker login` necessary
+```
+
+### Example
+```powershell
+# create only
+> .\create-image.ps1 node 6.10.3 -silent
+softaware/webdev:node-6.10.3 created successfully
+
+# create and publish
+> .\create-image.ps1 node 6.10.3 -silent -publish
+softaware/webdev:node-6.10.3 created successfully
+softaware/webdev:node-6.10.3 published successfully
+```
