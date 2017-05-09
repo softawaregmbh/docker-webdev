@@ -6,7 +6,7 @@ param(
 
 $tag = "node-" + $node_version
 $imagename = "softaware/webdev" + ":" + $tag
-$imagepath = "./image/"
+$imagepath = "./image/base/"
 $dockerfile = $imagepath + "Dockerfile"
 $generatedfile = $imagepath + "Dockerfile.gen"
 
