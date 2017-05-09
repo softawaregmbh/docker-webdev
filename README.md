@@ -52,12 +52,32 @@ Directly start the container to run a specific set of `npm`/`node`/`yarn` versio
 docker container run -it --rm -v ${pwd}:/usr/src/app softaware/webdev:node-6.10.3
 ```
 
+The container is designed to use your project folder as a mapped volume. This enables some of your team members not to use the container if the host [`npm`/`node` versions match](#explicit-versions).
+
+
 ## Motivation
 Developing multiple Web-Applications (especially old-ones) can get really tricky due to different `npm`/`node`-versions. Solutions like [nvm](https://github.com/creationix/nvm) are not cross-platform and introduce an implicit depencency.
 We thought that Docker and Container Solutions would allow us to commit our parts development environment with our source-code and make the used versions explicit.
 Thanks to the great official node Docker image: [`library/node`](https://hub.docker.com/_/node/), this task was not hard to accomplish.
 A `latest`-tag is omitted on purpose, because the idea of this container is to exactly specify the node and npm version you want to use.
 A few problems we faced and their solutions are described in [caveats](#caveats).
+
+### Tips
+#### <a name="explicit-versions"></a> Specifying `node` and `npm` versions explicitly
+To make sure that only specific versions of `node` and `npm` are used it is possible to specify the needed versions in `package.json`.
+Combined with `engine-strict = true` in `.npmrc` node complains if these versions are not compatible and prevents you from version incompatibilities.
+
+```json
+// package.json
+"engines": {
+  "node": "7.8.0", // or "7.x"; "5 - 7"; ">= 5"; more info: https://docs.npmjs.com/misc/semver
+  "npm": "4.2.0"
+}
+```
+```
+// .npmrc
+engine-strict = true
+```
 
 ### What it does?
 The [`Dockerfile`](./image/node/Dockerfile) extends `node:x.x.x-alpine` adds `bash`, modifies it's prompt slightly and [extends the path](./image/node/Dockerfile#L6) to execute `devDependencies` as executables. Additionally [npm-completion](https://docs.npmjs.com/cli/completion) is enabled.
@@ -66,7 +86,21 @@ The **main advantage** is the abstraction of the build-toolchain into a containe
 
 
 ## Caveats
-TODO: Docker File Detection + Angular CLI
+### Shared `node_modules` folder
+We decided to share the `node_modules` folder too, because otherwise IDEs like VS Code do not get Type-Informations for Autocomplete if the installed `node_modules` are encapsulated by the container. As a result you may have problems if *native node modules* are used and your Host-OS is not Linux when you try to start the application outside of the container.
+
+### Angular CLI/Webpack Live Reloading (Windows)
+Because of a [problem](https://docs.docker.com/docker-for-windows/troubleshoot/#troubleshooting) with `inotify` file changes do not reflect in the container for mounted directories on Windows. This can be solved with setting 
+[`poll`](https://github.com/angular/angular-cli/pull/1814#issuecomment-241854816) and [`host`](https://github.com/angular/angular-cli/issues/4471) in `.angular-cli.json` like the following snippet shows:
+```json
+// .angular-cli.json
+"defaults": {
+  "poll": 3000,
+  "serve": {
+    "host": "0.0.0.0"
+  }
+}
+```
 
 
 ## Development
