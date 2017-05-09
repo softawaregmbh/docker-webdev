@@ -5,7 +5,7 @@ LABEL maintainer "bernhard.mayr@softaware.at"
 # add MicroBadger data
 ARG VCS_REF
 LABEL org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/softawaregmbh/docker-webdev/image"
+      org.label-schema.vcs-url="https://github.com/softawaregmbh/docker-webdev"
 
 # set path in a way, that local npm-modules (e.g. ng-cli) can be called like executables
 ENV PATH="./node_modules/.bin:${PATH}"
