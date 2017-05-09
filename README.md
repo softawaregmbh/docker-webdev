@@ -13,11 +13,11 @@
       Usage
     </a>
     <span> | </span>
-    <a href="./motivation">
+    <a href="#motivation">
       Motivation
     </a>
     <span> | </span>
-    <a href="./examples">
+    <a href="https://github.com/softawaregmbh/docker-webdev/tree/master/examples">
       Examples
     </a>
     <span> | </span>
@@ -43,16 +43,16 @@
 
 ² more info here: [Node.js LTS Working Group](https://github.com/nodejs/LTS)
 
-³ no Angular included, just exposes port 4200 (see: [`Dockerfile`](./image/angular/Dockerfile))
+³ no Angular included, just exposes port 4200 (see: [`Dockerfile`](https://github.com/softawaregmbh/docker-webdev/tree/master/image/angular/Dockerfile))
 
 
-## Usage *([more](./examples))*
+## Usage *([more](https://github.com/softawaregmbh/docker-webdev/tree/master/examples))*
 Directly start the container to run a specific set of `npm`/`node`/`yarn` version without the need to install it locally. Mapping the current folder with `-v ...`. Choose the version according to the [available tags](https://hub.docker.com/r/softaware/webdev/tags/).
 ```
 docker container run -it --rm -v ${pwd}:/usr/src/app softaware/webdev:node-6.10.3
 ```
 
-The container is designed to use your project folder as a mapped volume. This enables some of your team members not to use the container if the host [`npm`/`node` versions match](#explicit-versions).
+The container is designed to use your project folder as a mapped volume. This enables some of your team members not to use the container if the host [`npm`/`node` versions match](#specifying-node-and-npm-versions-explicitly).
 
 
 ## Motivation
@@ -80,7 +80,7 @@ engine-strict = true
 ```
 
 ### What it does?
-The [`Dockerfile`](./image/node/Dockerfile) extends `node:x.x.x-alpine` adds `bash`, modifies it's prompt slightly and [extends the path](./image/node/Dockerfile#L6) to execute `devDependencies` as executables. Additionally [npm-completion](https://docs.npmjs.com/cli/completion) is enabled.
+The [`Dockerfile`](https://github.com/softawaregmbh/docker-webdev/tree/master/image/node/Dockerfile) extends `node:x.x.x-alpine` adds `bash`, modifies it's prompt slightly and [extends the path](https://github.com/softawaregmbh/docker-webdev/tree/master/image/node/Dockerfile#L6) to execute `devDependencies` as executables. Additionally [npm-completion](https://docs.npmjs.com/cli/completion) is enabled.
 
 The **main advantage** is the abstraction of the build-toolchain into a container, thus providing a consistent and reproducible developer experience across systems and platforms.
 
@@ -104,7 +104,7 @@ Because of a [problem](https://docs.docker.com/docker-for-windows/troubleshoot/#
 
 
 ## Development
-The containers are created through [`create-image.ps1`](./create-image.ps1). Please update the information in this [README](https://github.com/softawaregmbh/docker-webdev/blob/master/README.md) according to the new versions.
+The containers are created through [`create-image.ps1`](https://github.com/softawaregmbh/docker-webdev/tree/master/create-image.ps1). Please update the information in this [README](https://github.com/softawaregmbh/docker-webdev/blob/master/README.md) according to the new versions.
 ### Options
 ```
 // Parameters
