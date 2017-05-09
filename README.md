@@ -63,7 +63,7 @@ A `latest`-tag is omitted on purpose, because the idea of this container is to e
 A few problems we faced and their solutions are described in [caveats](#caveats).
 
 ### Tips
-#### <a name="explicit-versions"></a> Specifying `node` and `npm` versions explicitly
+#### Specifying `node` and `npm` versions explicitly
 To make sure that only specific versions of `node` and `npm` are used it is possible to specify the needed versions in `package.json`.
 Combined with `engine-strict = true` in `.npmrc` node complains if these versions are not compatible and prevents you from version incompatibilities.
 
