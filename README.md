@@ -51,10 +51,14 @@ docker container run -it --rm -v ${pwd}:/usr/src/app softaware/webdev:node-6.10.
 ```
 
 ## Motivation
-
+TODO:
 Our Container for Frontend-Webdevelopment based on node/npm.
 The **main advantage** is the abstraction of the build-toolchain into a container, thus providing a consistent and reproducible developer experience across systems and platforms.
 The `latest`-tag is omitted on purpose, because the idea of this container is to exactly specify the node and npm version you want to use.
+
+
+## Caveats
+TODO: Docker File Detection + Angular CLI
 
 
 ## Development
