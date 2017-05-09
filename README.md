@@ -33,11 +33,11 @@
 
 ## Versions and Sizes
 ### *latest versions*
-| Node<sup>1</sup> | Version | Image |
-| :---: | :---: | :---: |
-| **4** | `4.8.3` | [![](https://images.microbadger.com/badges/image/softaware/webdev:node-4.8.3.svg)](https://microbadger.com/images/softaware/webdev:node-4.8.3 "Get your own image badge on microbadger.com") |
-| **6** | `6.10.3` | [![](https://images.microbadger.com/badges/image/softaware/webdev:node-6.10.3.svg)](https://microbadger.com/images/softaware/webdev:node-6.10.3 "Get your own image badge on microbadger.com") |
-| 7 | `7.10.0` | [![](https://images.microbadger.com/badges/image/softaware/webdev:node-7.10.0.svg)](https://microbadger.com/images/softaware/webdev:node-7.10.0 "Get your own image badge on microbadger.com") |
+| Node<sup>1</sup> | Version | Base | Angular |
+| :---: | :---: | :---: | :---: |
+| **4** | `4.8.3` | [![](https://images.microbadger.com/badges/image/softaware/webdev:node-4.8.3.svg)](https://microbadger.com/images/softaware/webdev:node-4.8.3 "Get your own image badge on microbadger.com") | - |
+| **6** | `6.10.3` | [![](https://images.microbadger.com/badges/image/softaware/webdev:node-6.10.3.svg)](https://microbadger.com/images/softaware/webdev:node-6.10.3 "Get your own image badge on microbadger.com") | [![](https://images.microbadger.com/badges/image/softaware/webdev:angular-6.10.3.svg)](https://microbadger.com/images/softaware/webdev:angular-6.10.3 "Get your own image badge on microbadger.com") |
+| 7 | `7.10.0` | [![](https://images.microbadger.com/badges/image/softaware/webdev:node-7.10.0.svg)](https://microbadger.com/images/softaware/webdev:node-7.10.0 "Get your own image badge on microbadger.com") | - |
 
 <sup>1</sup> more info here: [Node.js LTS Working Group](https://github.com/nodejs/LTS)
 
@@ -55,7 +55,7 @@ docker container run -it --rm -v ${pwd}:/usr/src/app softaware/webdev:node-6.10.
 ### *in a project (e.g. Angular CLI)*
 ```Dockerfile
 # --- Dockerfile ---
-FROM softaware/webdev:6.10.3
+FROM softaware/webdev:node-6.10.3
 EXPOSE 4200
 ```
 ```bash
