@@ -67,7 +67,7 @@ A few problems we faced and their solutions are described in [caveats](#caveats)
 To make sure that only specific versions of `node` and `npm` are used it is possible to specify the needed versions in `package.json`.
 Combined with `engine-strict = true` in `.npmrc` node complains if these versions are not compatible and prevents you from version incompatibilities.
 
-```json
+```
 // package.json
 "engines": {
   "node": "7.8.0", // or "7.x"; "5 - 7"; ">= 5"; more info: https://docs.npmjs.com/misc/semver
