@@ -57,8 +57,8 @@ The container is designed to use your project folder as a mapped volume. This en
 
 ## Motivation
 Developing multiple Web-Applications (especially old-ones) can get really tricky due to different `npm`/`node`-versions. Solutions like [nvm](https://github.com/creationix/nvm) are not cross-platform and introduce an implicit depencency.
-We thought that Docker and Container Solutions would allow us to commit our parts development environment with our source-code and make the used versions explicit.
-Thanks to the great official node Docker image: [`library/node`](https://hub.docker.com/_/node/), this task was not hard to accomplish.
+We thought that a container would allow us to commit our development environment with our source-code and explicitly define the used versions.
+Thanks to the great official node Docker image: [`library/node`](https://hub.docker.com/_/node/), this task was not too hard to accomplish.
 A `latest`-tag is omitted on purpose, because the idea of this container is to exactly specify the node and npm version you want to use.
 A few problems we faced and their solutions are described in [caveats](#caveats).
 
