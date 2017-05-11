@@ -54,6 +54,14 @@ docker container run -it --rm -v ${pwd}:/usr/src/app softaware/webdev:node-6.10.
 
 The container is designed to use your project folder as a mapped volume. This enables some of your team members not to use the container if the host [`npm`/`node` versions match](#specifying-node-and-npm-versions-explicitly).
 
+### Specialized container versions
+To further ease the usage of the container ready-to-go images of commonly used Framwork-CLIs are available.
+No magic is happening there (see [source-code](https://github.com/softawaregmbh/docker-webdev/tree/master/image)), they just expose the predefined ports, so that e.g. live-servers are working properly.
+
+| Framework/Library | Tag-Prefix | Port(s) |
+| :---: | :---: | :---: |
+| Angular CLI | `angular-` | *4200* |
+
 
 ## Motivation
 Developing multiple Web-Applications (especially old-ones) can get really tricky due to different `npm`/`node`-versions. Solutions like [nvm](https://github.com/creationix/nvm) are not cross-platform and introduce an implicit depencency.
