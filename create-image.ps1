@@ -69,7 +69,7 @@ function Generate-Images {
   }
 }
 
-$images = @("") + ($customized_images.Split(",") | % { $_.Trim() })
+$images = @("") + ($customized_images.Split(",") | % { $_.Trim() }) | select -uniq
 
 foreach ($image in $images) {
   Generate-Images $node_version @("alpine","debian") $image $silent.IsPresent $publish.IsPresent
