@@ -35,7 +35,7 @@ This approach handles both cases.
 
 ## Custom *([code](./01%20custom))*
 This approach extends the Advanced example with a *custom container*.
-The Dockerfile derives from `softaware/webdev:node-6.10.3`.
+The Dockerfile derives from `softaware/webdev:alpine-6.10.3`.
 At the end the Angular CLI Port is exposed to enable the live-server.
 Now you can customize your image whatever you like, e.g. `RUN npm install -g npm-check` installs a npm package "globally", which means in the *container only* in this case.
 
