@@ -12,12 +12,12 @@ RUN apk --no-cache add bash
 WORKDIR "/usr/src/app"
 
 # prepare start-script
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY ./files/docker-entrypoint.sh /usr/local/bin/
 RUN chmod a+rx /usr/local/bin/docker-entrypoint.sh
 
-# prepare .profile
+# prepare shell
 RUN sed -i -e "s/bin\/ash/bin\/bash/" /etc/passwd
-COPY .bashrc /root/
+COPY ./files/.bashrc /root/
 
 # executing the start-script and dropping into a new bash session
 ENTRYPOINT ["docker-entrypoint.sh"]

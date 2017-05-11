@@ -1,0 +1,5 @@
+# choose version according to Angular-CLI requirements: https://github.com/angular/angular-cli/blob/master/package.json#L32
+FROM softaware/webdev:debian-{{ node_version }}
+
+# expose Angular CLI port
+EXPOSE 4200
