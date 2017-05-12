@@ -5,12 +5,12 @@
 
 <div align="center">
   <h3>
-    <a href="#versions">
-      Versions
-    </a>
-    <span> | </span>
     <a href="#usage">
       Usage
+    </a>
+    <span> | </span>
+    <a href="#versions">
+      Versions
     </a>
     <span> | </span>
     <a href="#motivation">
