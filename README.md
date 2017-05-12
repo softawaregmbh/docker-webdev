@@ -28,17 +28,39 @@
     <a href="https://hub.docker.com/r/softaware/webdev/">
       Docker Hub
     </a>
+    <span> | </span>
+    <a href="https://softaware.at/codeaware/2017/05/11/consistent-npm-development-environments-using-docker.html">
+      Blog Article
+    </a>
   </h3>
 </div>
 
 
 ## Usage *([more](https://github.com/softawaregmbh/docker-webdev/tree/master/examples))*
-Directly start the container to run a specific set of `npm`/`node`/`yarn` version without the need to install it locally. Mapping the current folder with `-v ...`. Choose the version according to the [available tags](https://hub.docker.com/r/softaware/webdev/tags/).
+> The container is intended to be used for the following two cases:
+
+### (1) Running a specific version of node or npm without local installation (e.g. `npm init`)
+Directly start the container to run a specific set of `npm`/`node`/`yarn` version without the need to install it locally. Map the current folder with `-v ...`. Choose the version according to the [available tags](https://hub.docker.com/r/softaware/webdev/tags/).
+
+**Example:** To start a bash with *npm 3.10.10* in your current directory you can run the following command.
 ```
 docker container run -it --rm -v ${pwd}:/usr/src/app softaware/webdev:node-6.10.3
 ```
 
-The container is designed to use your project folder as a mapped volume. This enables some of your team members not to use the container if the host [`npm`/`node` versions match](#specifying-node-and-npm-versions-explicitly).
+Now that you have set up your web-project please continue with *[Adding the container to an existing project](#2-adding-the-container-to-an-existing-project)* using the same node version.
+
+### (2) Adding the container to an existing project
+The container is way more powerful if it is added as a versioned dependency to an existing project.
+1. As shown in the [examples](https://github.com/softawaregmbh/docker-webdev/tree/master/examples) create a script for your shell that starts the container you want to use.
+2. Add this script to your repository.
+3. Now you can start your development environment with `<scriptname> ENTER` and you are good to go.
+4. Don't forget to document the name and the usage of the script in your README to spread your knowledge.
+
+### *Additional Information*
+- The container is designed to use your project folder as a mapped volume. This enables some of your team members not to use the container if the host [`npm`/`node` versions match](#specifying-node-and-npm-versions-explicitly).
+- If your Container OS is different than your Host OS delete the `node_modules`-directory before starting the container. ([more info](#shared-node_modules-folder))
+- Be aware of your IDE automatically running `npm install` and messing up your `node_modules`! (e.g. [Visual Studio](http://stackoverflow.com/questions/31876984/how-can-i-disable-npm-package-restore-in-visual-studio-2015))
+- [Enable file change detection](#angular-cliwebpack-live-reloading-windows)
 
 
 ## Versions¹ and Sizes
