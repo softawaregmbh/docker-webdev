@@ -32,20 +32,6 @@
 </div>
 
 
-## Versions¹ and Sizes
-| Node² | Version | Base | Angular³ |
-| :---: | :---: | :---: | :---: |
-| **4** | `4.8.3` | [![](https://images.microbadger.com/badges/image/softaware/webdev:node-4.8.3.svg)](https://microbadger.com/images/softaware/webdev:node-4.8.3 "Get your own image badge on microbadger.com") | - |
-| **6** | `6.10.3` | [![](https://images.microbadger.com/badges/image/softaware/webdev:node-6.10.3.svg)](https://microbadger.com/images/softaware/webdev:node-6.10.3 "Get your own image badge on microbadger.com") | [![](https://images.microbadger.com/badges/image/softaware/webdev:angular-6.10.3.svg)](https://microbadger.com/images/softaware/webdev:angular-6.10.3 "Get your own image badge on microbadger.com") |
-| 7 | `7.10.0` | [![](https://images.microbadger.com/badges/image/softaware/webdev:node-7.10.0.svg)](https://microbadger.com/images/softaware/webdev:node-7.10.0 "Get your own image badge on microbadger.com") | - |
-
-¹ You can see all available versions on [Docker Hub](https://hub.docker.com/r/softaware/webdev/tags/). The images are tagged according to the `npm`/`node` releases like [node releases](https://nodejs.org/en/download/releases/) and [node-docker tags](https://hub.docker.com/r/library/node/).
-
-² more info here: [Node.js LTS Working Group](https://github.com/nodejs/LTS)
-
-³ no Angular included, just exposes port 4200 (see: [`Dockerfile`](https://github.com/softawaregmbh/docker-webdev/tree/master/image/angular/Dockerfile))
-
-
 ## Usage *([more](https://github.com/softawaregmbh/docker-webdev/tree/master/examples))*
 Directly start the container to run a specific set of `npm`/`node`/`yarn` version without the need to install it locally. Mapping the current folder with `-v ...`. Choose the version according to the [available tags](https://hub.docker.com/r/softaware/webdev/tags/).
 ```
@@ -54,13 +40,35 @@ docker container run -it --rm -v ${pwd}:/usr/src/app softaware/webdev:node-6.10.
 
 The container is designed to use your project folder as a mapped volume. This enables some of your team members not to use the container if the host [`npm`/`node` versions match](#specifying-node-and-npm-versions-explicitly).
 
-### Specialized container versions
-To further ease the usage of the container ready-to-go images of commonly used Framwork-CLIs are available.
-No magic is happening there (see [source-code](https://github.com/softawaregmbh/docker-webdev/tree/master/image)), they just expose the predefined ports, so that e.g. live-servers are working properly.
 
-| Framework/Library | Tag-Prefix | Port(s) |
+## Versions¹ and Sizes
+| Node² | Latest Version | Alpine | Debian |
+| :---: | :---: | :---: | :---: |
+| **4** | `4.8.3` | [![](https://images.microbadger.com/badges/image/softaware/webdev:alpine-4.8.3.svg)](https://microbadger.com/images/softaware/webdev:alpine-4.8.3) | [![](https://images.microbadger.com/badges/image/softaware/webdev:debian-4.8.3.svg)](https://microbadger.com/images/softaware/webdev:debian-4.8.3) |
+| **6** | `6.10.3` | [![](https://images.microbadger.com/badges/image/softaware/webdev:alpine-6.10.3.svg)](https://microbadger.com/images/softaware/webdev:alpine-6.10.3) | [![](https://images.microbadger.com/badges/image/softaware/webdev:debian-6.10.3.svg)](https://microbadger.com/images/softaware/webdev:debian-6.10.3) |
+| 7 | `7.10.0` | [![](https://images.microbadger.com/badges/image/softaware/webdev:alpine-7.10.0.svg)](https://microbadger.com/images/softaware/webdev:alpine-7.10.0) | [![](https://images.microbadger.com/badges/image/softaware/webdev:debian-7.10.0.svg)](https://microbadger.com/images/softaware/webdev:debian-7.10.0) |
+
+¹ You can see all available versions on [Docker Hub](https://hub.docker.com/r/softaware/webdev/tags/). The images are tagged according to the `npm`/`node` releases like [node releases](https://nodejs.org/en/download/releases/) and [node-docker tags](https://hub.docker.com/r/library/node/).
+
+² more info here: [Node.js LTS Working Group](https://github.com/nodejs/LTS)
+
+### `alpine-x.x.x`
+We recommend to use the alpine image because of the *small image size*!
+Because alpine linux uses `musl libc` instead of `glibc` you may run into problems. More information can be found [here](https://github.com/nodejs/docker-node#nodealpine).
+We had an [issue](https://github.com/sass/node-sass/issues/1858) with [Kendo UI](https://github.com/sass/node-sass/issues/1858) and [node-sass](https://github.com/sass/node-sass) on alpine.
+This is the reason why [`debian-x.x.x`](#debian-xxx) exists.
+
+### `debian-x.x.x`
+In addition to the *alpine image* a full *debian image* based on the full [official Docker node image](https://github.com/nodejs/docker-node#nodeversion) is available too.
+
+### `<...>-x.x.x-<application-type>`
+To further ease the usage of the image we provide *application-specific* images.
+The idea behind them is **bring your own project**.
+We do not include any global node-packages or other stuff, instead we just **expose the default ports** for live-reloading, etc. to get you started faster!
+
+| Framework/Library | Tag-Suffix | Port(s) |
 | :---: | :---: | :---: |
-| Angular CLI | `angular-` | *4200* |
+| Angular CLI | `-angular` | *[4200](https://github.com/angular/angular-cli#generating-and-serving-an-angular-project-via-a-development-server)* |
 
 
 ## Motivation
@@ -112,12 +120,17 @@ Because of a [problem](https://docs.docker.com/docker-for-windows/troubleshoot/#
 
 
 ## Development
-The containers are created through [`create-image.ps1`](https://github.com/softawaregmbh/docker-webdev/tree/master/create-image.ps1). Please update the information in this [README](https://github.com/softawaregmbh/docker-webdev/blob/master/README.md) according to the new versions.
+The containers are created through [`create-image.ps1`](https://github.com/softawaregmbh/docker-webdev/tree/master/create-image.ps1). Please update the version information in this [README](https://github.com/softawaregmbh/docker-webdev/blob/master/README.md) according to the new versions.
+
+> **IMPORTANT:** Make sure that all the files used in the container (`.bashrc`, `docker-entrypoint.sh`, ...) use `LF` as their line-ending. Otherwise you will get really ugly errors at *container runtime*!
+
 ### Options
 ```
 // Parameters
-[1] image-type     # one of the subfolders in ./image
-[2] node-version   # node-version according to https://hub.docker.com/r/library/node/
+[1] node-version        # node-version according to https://hub.docker.com/r/library/node/
+[2] application-type(s) # 0, one or more Dockerfile-Suffixes as seen in ./images
+                        # e.g. "angular" | "angular, webpack"
+                        # if omitted, only plain base images are created
 
 // Flags
 -silent    # omit Docker-Output only show success and error messages
@@ -127,11 +140,18 @@ The containers are created through [`create-image.ps1`](https://github.com/softa
 ### Example
 ```powershell
 # create only
-> .\create-image.ps1 node 6.10.3 -silent
-softaware/webdev:node-6.10.3 created successfully
+> .\create-image.ps1 4.8.3 -silent
+softaware/webdev:alpine-4.8.3 created successfully
+softaware/webdev:debian-4.8.3 created successfully
 
 # create and publish
-> .\create-image.ps1 node 6.10.3 -silent -publish
-softaware/webdev:node-6.10.3 created successfully
-softaware/webdev:node-6.10.3 published successfully
+> .\create-image.ps1 6.10.3 "angular" -silent -publish
+softaware/webdev:alpine-6.10.3 created successfully
+softaware/webdev:alpine-6.10.3 published successfully
+softaware/webdev:debian-6.10.3 created successfully
+softaware/webdev:debian-6.10.3 published successfully
+softaware/webdev:alpine-6.10.3-angular created successfully
+softaware/webdev:alpine-6.10.3-angular published successfully
+softaware/webdev:debian-6.10.3-angular created successfully
+softaware/webdev:debian-6.10.3-angular published successfully
 ```
