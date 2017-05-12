@@ -5,11 +5,11 @@
 
 <div align="center">
   <h3>
-    <a href="#usage">
+    <a href="#usage-more">
       Usage
     </a>
     <span> | </span>
-    <a href="#versions">
+    <a href="#versions-and-sizes">
       Versions
     </a>
     <span> | </span>
@@ -55,11 +55,11 @@ The container is designed to use your project folder as a mapped volume. This en
 ### `alpine-x.x.x`
 We recommend to use the alpine image because of the *small image size*!
 Because alpine linux uses `musl libc` instead of `glibc` you may run into problems. More information can be found [here](https://github.com/nodejs/docker-node#nodealpine).
-We had an [issue](https://github.com/sass/node-sass/issues/1858) with [Kendo UI](https://github.com/sass/node-sass/issues/1858) and [node-sass](https://github.com/sass/node-sass) on alpine.
+We had an [issue](https://github.com/sass/node-sass/issues/1858) with Kendo UI and [node-sass](https://github.com/sass/node-sass) on alpine.
 This is the reason why [`debian-x.x.x`](#debian-xxx) exists.
 
 ### `debian-x.x.x`
-In addition to the *alpine image* a full *debian image* based on the full [official Docker node image](https://github.com/nodejs/docker-node#nodeversion) is available too.
+In addition to the *alpine image* a full *debian image* based on the full [official Docker node image](https://github.com/nodejs/docker-node#nodeversion) is available.
 
 ### `<...>-x.x.x-<application-type>`
 To further ease the usage of the image we provide *application-specific* images.
@@ -75,8 +75,15 @@ We do not include any global node-packages or other stuff, instead we just **exp
 Developing multiple Web-Applications (especially old-ones) can get really tricky due to different `npm`/`node`-versions. Solutions like [nvm](https://github.com/creationix/nvm) are not cross-platform and introduce an implicit depencency.
 We thought that a container would allow us to commit our development environment with our source-code and explicitly define the used versions.
 Thanks to the great official node Docker image: [`library/node`](https://hub.docker.com/_/node/), this task was not too hard to accomplish.
+
+Daniel Demmel released an [excellent article](https://www.smashingmagazine.com/2016/04/stop-installing-your-webdev-environment-locally-with-docker/) on smashingmagazine where he mentions even more reasons and a bit of the history why containerizing your webdevelopment environment makes perfectly sense.
 A `latest`-tag is omitted on purpose, because the idea of this container is to exactly specify the node and npm version you want to use.
 A few problems we faced and their solutions are described in [caveats](#caveats).
+
+### What it does?
+The [`Dockerfile`](https://github.com/softawaregmbh/docker-webdev/tree/master/images/Dockerfile.alpine) extends `node:x.x.x-alpine` (same with *debian*) adds `bash`, modifies it's prompt slightly and [extends the path](https://github.com/softawaregmbh/docker-webdev/tree/master/images/Dockerfile.alpine#L6) to execute `devDependencies` as executables. Additionally [npm-completion](https://docs.npmjs.com/cli/completion) is enabled.
+
+The **main advantage** is the abstraction of the build-toolchain into a container, thus providing a consistent and reproducible developer experience across systems and platforms.
 
 ### Tips
 #### Specifying `node` and `npm` versions explicitly
@@ -95,18 +102,13 @@ Combined with `engine-strict = true` in `.npmrc` node complains if these version
 engine-strict = true
 ```
 
-### What it does?
-The [`Dockerfile`](https://github.com/softawaregmbh/docker-webdev/tree/master/image/node/Dockerfile) extends `node:x.x.x-alpine` adds `bash`, modifies it's prompt slightly and [extends the path](https://github.com/softawaregmbh/docker-webdev/tree/master/image/node/Dockerfile#L6) to execute `devDependencies` as executables. Additionally [npm-completion](https://docs.npmjs.com/cli/completion) is enabled.
-
-The **main advantage** is the abstraction of the build-toolchain into a container, thus providing a consistent and reproducible developer experience across systems and platforms.
-
 
 ## Caveats
 ### Shared `node_modules` folder
 We decided to share the `node_modules` folder too, because otherwise IDEs like VS Code do not get Type-Informations for Autocomplete if the installed `node_modules` are encapsulated by the container. As a result you may have problems if *native node modules* are used and your Host-OS is not Linux when you try to start the application outside of the container.
 
 ### Angular CLI/Webpack Live Reloading (Windows)
-Because of a [problem](https://docs.docker.com/docker-for-windows/troubleshoot/#troubleshooting) with `inotify` file changes do not reflect in the container for mounted directories on Windows. This can be solved with setting 
+Because of a [problem](https://docs.docker.com/docker-for-windows/troubleshoot/#inotify-on-shared-drives-does-not-work) with `inotify` file changes do not reflect in the container for mounted directories on Windows. This can be solved with setting 
 [`poll`](https://github.com/angular/angular-cli/pull/1814#issuecomment-241854816) and [`host`](https://github.com/angular/angular-cli/issues/4471) in `.angular-cli.json` like the following snippet shows:
 ```json
 // .angular-cli.json
