@@ -60,7 +60,8 @@ The container is way more powerful if it is added as a versioned dependency to a
 - The container is designed to use your project folder as a mapped volume. This enables some of your team members not to use the container if the host [`npm`/`node` versions match](#specifying-node-and-npm-versions-explicitly).
 - If your Container OS is different than your Host OS delete the `node_modules`-directory before starting the container. ([more info](#shared-node_modules-folder))
 - Be aware of your IDE automatically running `npm install` and messing up your `node_modules`! (e.g. [Visual Studio](http://stackoverflow.com/questions/31876984/how-can-i-disable-npm-package-restore-in-visual-studio-2015))
-- [Enable file change detection](#angular-cliwebpack-live-reloading-windows)
+- How to [enable file change detection](#angular-cliwebpack-live-reloading-windows).
+- The root directory of your application in the container is `/usr/src/app`.
 
 
 ## Versions¹ and Sizes
