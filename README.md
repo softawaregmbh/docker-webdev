@@ -131,8 +131,9 @@ engine-strict = true
 We decided to share the `node_modules` folder too, because otherwise IDEs like VS Code do not get Type-Informations for Autocomplete if the installed `node_modules` are encapsulated by the container. As a result you may have problems if *native node modules* are used and your Host-OS is not Linux when you try to start the application outside of the container.
 
 ### Angular CLI/Webpack Live Reloading (Windows)
-Because of a [problem](https://docs.docker.com/docker-for-windows/troubleshoot/#inotify-on-shared-drives-does-not-work) with `inotify` file changes do not reflect in the container for mounted directories on Windows. This can be solved with setting 
-[`poll`](https://github.com/angular/angular-cli/pull/1814#issuecomment-241854816) and [`host`](https://github.com/angular/angular-cli/issues/4471) in `.angular-cli.json` like the following snippet shows:
+Making the webserver of Angular CLI (or any other Webpack-based project) working, requires you to set the [`host`](https://github.com/angular/angular-cli/issues/4471)-setting in `.angular-cli.json` to `0.0.0.0`. Now the webserver binds to every available network interface, thus enabling access to it from the host.
+Because of a [problem](https://docs.docker.com/docker-for-windows/troubleshoot/#inotify-on-shared-drives-does-not-work) with `inotify` file changes do not reflect in the container for mounted directories on Windows. This can be solved by enabling polling with setting 
+[`poll`](https://github.com/angular/angular-cli/pull/1814#issuecomment-241854816) in `.angular-cli.json` like the following snippet shows:
 ```json
 // .angular-cli.json
 "defaults": {
@@ -142,6 +143,7 @@ Because of a [problem](https://docs.docker.com/docker-for-windows/troubleshoot/#
   }
 }
 ```
+*The same problems may arise if you are using `gulp` or `webpack` directly!*
 
 
 ## Development
