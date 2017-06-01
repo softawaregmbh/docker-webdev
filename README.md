@@ -29,7 +29,7 @@
       Docker Hub
     </a>
     <span> | </span>
-    <a href="https://softaware.at/codeaware/2017/05/11/consistent-npm-development-environments-using-docker.html">
+    <a href="https://softaware.at/codeaware/2017/05/23/consistent-npm-development-environments-using-docker.html">
       Blog Article
     </a>
   </h3>
