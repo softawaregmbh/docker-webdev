@@ -37,6 +37,7 @@ This approach handles both cases.
 This approach extends the Advanced example with a *custom container*.
 The Dockerfile derives from `softaware/webdev:alpine-6.10.3`.
 At the end the Angular CLI Port is exposed to enable the live-server.
+This could have been omitted, but it if you want to use the container with `docker-compose` now other containers can see port *4200* on this one.
 Now you can customize your image whatever you like, e.g. `RUN npm install -g npm-check` installs a npm package "globally", which means in the *container only* in this case.
 
 The `docker-devenv.ps1`-Script sets the whole thing up.
@@ -48,3 +49,8 @@ This is no problem, because Docker does not rebuild a Layer if it is not a new o
 | customizable | [`build`](https://docs.docker.com/engine/reference/commandline/image_build/) necessary |
 | multiple named containers | |
 | start-script handles building | |
+
+---
+
+## Application Examples
+- ### [koa](./koa) (next generation web framework for node.js)

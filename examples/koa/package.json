@@ -1,0 +1,19 @@
+{
+  "name": "koa-example",
+  "version": "1.0.0",
+  "description": "Just a simple koa-webserver to demonstrate the softaware/webdev container.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "koa",
+    "docker"
+  ],
+  "author": "Bernhard Mayr <bernhard.mayr@softaware.at>",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "2.2.0"
+  }
+}

@@ -40,14 +40,15 @@
 > The container is intended to be used for the following two cases:
 
 ### (1) Running a specific version of node or npm without local installation (e.g. `npm init`)
-Directly start the container to run a specific set of `npm`/`node`/`yarn` version without the need to install it locally. Map the current folder with `-v ...`. Choose the version according to the [available tags](https://hub.docker.com/r/softaware/webdev/tags/).
+Directly start the container to run a specific set of `npm`/`node`/`yarn` version without the need to install these locally on your system. Map the current folder with `-v ...`. Choose the version according to the [available tags](https://hub.docker.com/r/softaware/webdev/tags/).
 
 **Example:** To start a bash with *npm 3.10.10* in your current directory you can run the following command.
 ```
-docker container run -it --rm -v ${pwd}:/usr/src/app softaware/webdev:node-6.10.3
+docker container run -it --rm -v ${pwd}:/usr/src/app softaware/webdev:alpine-6.10.3
 ```
 
-Now that you have set up your web-project please continue with *[Adding the container to an existing project](#2-adding-the-container-to-an-existing-project)* using the same node version.
+Now you can run whatever `npm`/`node`/`yarn` commands you want. Let's say you want to setup a project, just run `npm init` in the container.
+Afterwards please continue with *[Adding the container to an existing project](#2-adding-the-container-to-an-existing-project)* using the same node version.
 
 ### (2) Adding the container to an existing project
 The container is way more powerful if it is added as a versioned dependency to an existing project.
@@ -62,6 +63,8 @@ The container is way more powerful if it is added as a versioned dependency to a
 - Be aware of your IDE automatically running `npm install` and messing up your `node_modules`! (e.g. [Visual Studio](http://stackoverflow.com/questions/31876984/how-can-i-disable-npm-package-restore-in-visual-studio-2015))
 - How to [enable file change detection](#angular-cliwebpack-live-reloading-windows).
 - The root directory of your application in the container is `/usr/src/app`.
+- Try to override the container's startup command with an npm command. As an example you can automatically run `npm start` in the container by running the container with `... softaware/webdev:<linux>-<version> npm start` in your shell script.
+- Previous versions of the container contained [exposed ports](https://github.com/softawaregmbh/docker-webdev/commit/1f8a07c32617909b4c64c8d1729bdd1cc4fb5e14). Because [exposing a port is not necessary](https://www.ctl.io/developers/blog/post/docker-networking-rules/) for publishing it (`docker container run -p <host:container>`), these do not exist anymore. Just choose your desired [version](#versions-and-sizes) and [**publish** the port of the web server](https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port--p-expose) you use with `-p <...>`.
 
 
 ## Versions¹ and Sizes
@@ -70,6 +73,7 @@ The container is way more powerful if it is added as a versioned dependency to a
 | **4** | `4.8.3` | [![](https://images.microbadger.com/badges/image/softaware/webdev:alpine-4.8.3.svg)](https://microbadger.com/images/softaware/webdev:alpine-4.8.3) | [![](https://images.microbadger.com/badges/image/softaware/webdev:debian-4.8.3.svg)](https://microbadger.com/images/softaware/webdev:debian-4.8.3) |
 | **6** | `6.10.3` | [![](https://images.microbadger.com/badges/image/softaware/webdev:alpine-6.10.3.svg)](https://microbadger.com/images/softaware/webdev:alpine-6.10.3) | [![](https://images.microbadger.com/badges/image/softaware/webdev:debian-6.10.3.svg)](https://microbadger.com/images/softaware/webdev:debian-6.10.3) |
 | 7 | `7.10.0` | [![](https://images.microbadger.com/badges/image/softaware/webdev:alpine-7.10.0.svg)](https://microbadger.com/images/softaware/webdev:alpine-7.10.0) | [![](https://images.microbadger.com/badges/image/softaware/webdev:debian-7.10.0.svg)](https://microbadger.com/images/softaware/webdev:debian-7.10.0) |
+| **8** | `8.0.0` | [![](https://images.microbadger.com/badges/image/softaware/webdev:alpine-8.0.0.svg)](https://microbadger.com/images/softaware/webdev:alpine-8.0.0) | [![](https://images.microbadger.com/badges/image/softaware/webdev:debian-8.0.0.svg)](https://microbadger.com/images/softaware/webdev:debian-8.0.0) |
 
 ¹ You can see all available versions on [Docker Hub](https://hub.docker.com/r/softaware/webdev/tags/). The images are tagged according to the `npm`/`node` releases like [node releases](https://nodejs.org/en/download/releases/) and [node-docker tags](https://hub.docker.com/r/library/node/).
 
@@ -83,15 +87,6 @@ This is the reason why [`debian-x.x.x`](#debian-xxx) exists.
 
 ### `debian-x.x.x`
 In addition to the *alpine image* a full *debian image* based on the full [official Docker node image](https://github.com/nodejs/docker-node#nodeversion) is available.
-
-### `<...>-x.x.x-<application-type>`
-To further ease the usage of the image we provide *application-specific* images.
-The idea behind them is **bring your own project**.
-We do not include any global node-packages or other stuff, instead we just **expose the default ports** for live-reloading, etc. to get you started faster!
-
-| Framework/Library | Tag-Suffix | Port(s) |
-| :---: | :---: | :---: |
-| Angular CLI | `-angular` | *[4200](https://github.com/angular/angular-cli#generating-and-serving-an-angular-project-via-a-development-server)* |
 
 
 ## Motivation
@@ -155,9 +150,6 @@ The containers are created through [`create-image.ps1`](https://github.com/softa
 ```
 // Parameters
 [1] node-version        # node-version according to https://hub.docker.com/r/library/node/
-[2] application-type(s) # 0, one or more Dockerfile-Suffixes as seen in ./images
-                        # e.g. "angular" | "angular, webpack"
-                        # if omitted, only plain base images are created
 
 // Flags
 -silent    # omit Docker-Output only show success and error messages
@@ -172,13 +164,9 @@ softaware/webdev:alpine-4.8.3 created successfully
 softaware/webdev:debian-4.8.3 created successfully
 
 # create and publish
-> .\create-image.ps1 6.10.3 "angular" -silent -publish
-softaware/webdev:alpine-6.10.3 created successfully
-softaware/webdev:alpine-6.10.3 published successfully
-softaware/webdev:debian-6.10.3 created successfully
-softaware/webdev:debian-6.10.3 published successfully
-softaware/webdev:alpine-6.10.3-angular created successfully
-softaware/webdev:alpine-6.10.3-angular published successfully
-softaware/webdev:debian-6.10.3-angular created successfully
-softaware/webdev:debian-6.10.3-angular published successfully
+> .\create-image.ps1 8.0.0 -silent -publish
+softaware/webdev:alpine-8.0.0 created successfully
+softaware/webdev:alpine-8.0.0 published successfully
+softaware/webdev:debian-8.0.0 created successfully
+softaware/webdev:debian-8.0.0 published successfully
 ```
