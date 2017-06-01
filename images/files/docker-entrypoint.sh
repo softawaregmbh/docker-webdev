@@ -8,7 +8,7 @@ if [ -f package.json ]; then
     fi
     npm install --loglevel warn
 else
-    printf "No `package.json` found, you may run `npm init` now."
+    printf "No \`package.json\` found, you may run \`npm init\` now."
 fi
 
 exec "$@"
