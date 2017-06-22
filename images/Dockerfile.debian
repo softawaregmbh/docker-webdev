@@ -8,13 +8,9 @@ ENV PATH="./node_modules/.bin:${PATH}"
 # set the working-directory
 WORKDIR "/usr/src/app"
 
-# prepare start-script
-COPY ./files/docker-entrypoint.sh /usr/local/bin/
-RUN chmod a+rx /usr/local/bin/docker-entrypoint.sh
-
-# prepare shell
+# prepare bash
 COPY ./files/.bashrc /root/
+RUN npm completion >> /root/.bashrc
 
-# executing the start-script and dropping into a new bash session
-ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["bash"]
+# start a new bash session
+CMD ["/bin/bash"]
