@@ -20,7 +20,7 @@ function Print-Usage() {
     Print-Command-Help $START "runs 'npm start': application available at http://localhost:$($PORT)"
     Print-Command-Help $SHELL "launches a bash in the root folder with npm, node and yarn installed"
     Print-Command-Help $BACKGROUND "runs 'npm start' in the background: application available at http://localhost:$($PORT)"
-    Print-Command-Help $BACKGROUND_STOP "stops and removes the previously ran container"
+    Print-Command-Help $BACKGROUND_STOP "stops and removes the previously run container"
     Print-Command-Help $INTERACTIVE "launches a bash with Port $($PORT) mapped; run your npm commands afterwards"
 }
 

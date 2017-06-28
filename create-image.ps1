@@ -56,11 +56,11 @@ function Publish-Image {
 function Generate-Images {
   param(
     [String]$node_version,
-    [String[]]$distribution,
+    [String[]]$distributions,
     [Boolean]$silent,
     [Boolean]$publish
   )
-  foreach ($distribution in $distribution) {
+  foreach ($distribution in $distributions) {
     Generate-Image $node_version $distribution $silent $publish
   }
 }
