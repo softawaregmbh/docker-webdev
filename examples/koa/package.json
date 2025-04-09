@@ -14,6 +14,6 @@
   "author": "Bernhard Mayr <bernhard.mayr@softaware.at>",
   "license": "ISC",
   "dependencies": {
-    "koa": "2.2.0"
+    "koa": "2.16.1"
   }
 }
